@@ -1,7 +1,7 @@
 # logful
 [![NPM Version](https://badge.fury.io/js/logful.png)](https://npmjs.org/package/logful)
 [![Build Status](https://travis-ci.org/Dreamscapes/Logful.svg)](http://travis-ci.org/Dreamscapes/Logful)
-[![Coverage Status](https://coveralls.io/repos/Dreamscapes/Logful/badge.png)](https://coveralls.io/r/Dreamscapes/Logful)
+[![Coverage Status](https://coveralls.io/repos/Dreamscapes/Logful/badge.png?branch=develop)](https://coveralls.io/r/Dreamscapes/Logful)
 [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com)
 
 > Logging everywhere, made simple and still configurable
