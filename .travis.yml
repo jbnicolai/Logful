@@ -1,0 +1,15 @@
+language: node_js
+node_js:
+ - 0.10
+before_install:
+ - npm install -g grunt-cli
+after_success:
+ - grunt coverage:publish
+deploy:
+  provider: npm
+  api_key: -YOUR API KEY-
+  on:
+    tags: true
+    branch: master
+    node: 0.10
+    repo: Dreamscapes/logful
