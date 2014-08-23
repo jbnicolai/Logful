@@ -6,7 +6,7 @@
 
 > Logging everywhere, made simple and still configurable
 
-** Project still under heavy development!**
+**Project still under heavy development!**
 
 ## Installation Instructions
 
