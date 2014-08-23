@@ -1,6 +1,6 @@
 # logful
 [![NPM Version](https://badge.fury.io/js/logful.png)](https://npmjs.org/package/logful)
-[![Build Status](https://travis-ci.org/BeBe/logful.svg)](http://travis-ci.org/BeBe/logful)
+[![Build Status](https://travis-ci.org/Dreamscapes/Logful.svg)](http://travis-ci.org/Dreamscapes/Logful)
 [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com)
 
 > Logging everywhere, made simple and still configurable
