@@ -20,8 +20,7 @@
   },
   "dependencies": {
     "chalk": "^0.5.1",
-    "moment": "^2.8.2",
-    "nomnom": "^1.8.0"
+    "moment": "^2.8.2"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
