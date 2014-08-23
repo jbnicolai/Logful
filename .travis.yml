@@ -13,3 +13,4 @@ deploy:
   on:
     tags: true
     repo: Dreamscapes/Logful
+    all_branches: true
