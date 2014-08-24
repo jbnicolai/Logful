@@ -17,14 +17,14 @@
 
 var libDir = process.env.COVERAGE ? '../lib-cov/' : '../lib/'
   , EventEmitter = require('events').EventEmitter
-  , GenericModule = require(libDir + 'modules/genericmodule')
-  , genericModule
+  , GenericHandler = require(libDir + 'handlers/generichandler')
+  , handler
 
-describe('GenericModule', function () {
+describe('GenericHandler', function () {
 
   beforeEach(function () {
     // Create a new instance
-    genericModule = new GenericModule()
+    handler = new GenericHandler()
   })
 
 
@@ -32,16 +32,16 @@ describe('GenericModule', function () {
 
     it('subscribes itself to the "entry" event of given emitter', function () {
       var emitter = new EventEmitter()
-      genericModule.subscribe(emitter)
+      handler.subscribe(emitter)
 
       emitter.listeners('entry').length.should.equal(1)
     })
 
     it('should hand the event data over to .log() method', function (done) {
       var emitter = new EventEmitter()
-      genericModule.subscribe(emitter)
+      handler.subscribe(emitter)
 
-      genericModule.log = done
+      handler.log = done
       emitter.emit('entry')
     })
   })

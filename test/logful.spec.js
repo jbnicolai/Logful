@@ -18,7 +18,7 @@
 var libDir = process.env.COVERAGE ? '../lib-cov/' : '../lib/'
   , EventEmitter = require('events').EventEmitter
   , Logful = require(libDir + 'logful')
-  , Stdout = require(libDir + 'modules/stdout')
+  , Stdout = require(libDir + 'handlers/stdout')
   , logger
 
 
@@ -27,7 +27,7 @@ describe('Logful', function () {
   beforeEach(function () {
     // Create a new instance
     logger = new Logful()
-    Logful.modules = [] // Reset the loaded modules so we can provide configuration per test
+    Logful.handlers = [] // Reset the loaded handlers so we can provide configuration per test
   })
 
 
@@ -162,16 +162,16 @@ describe('Logful', function () {
 
   describe(':use()', function () {
 
-    it('should load module from lib/modules', function () {
+    it('should load module from lib/handlers', function () {
       Logful.use('stdout')
-      Logful.modules.stdout.should.be.an.instanceOf(Stdout)
+      Logful.handlers.stdout.should.be.an.instanceOf(Stdout)
     })
 
-    it('should make all loaded modules a subscriber of the "entry" event', function (done) {
+    it('should make all loaded handlers a subscriber of the "entry" event', function (done) {
       Logful.use('stdout')
-      var originalFn = Logful.modules.stdout.subscribe
-      Logful.modules.stdout.subscribe = function () {
-        Logful.modules.stdout.subscribe = originalFn
+      var originalFn = Logful.handlers.stdout.subscribe
+      Logful.handlers.stdout.subscribe = function () {
+        Logful.handlers.stdout.subscribe = originalFn
         done()
       }
       logger = new Logful()
@@ -180,9 +180,9 @@ describe('Logful', function () {
     it('should merge configuration objects with defaults', function () {
       Logful.use('stdout', { formats: { timestamp: 'YY-MM-D' } })
       // The overriden value
-      Logful.modules.stdout.formats.timestamp.should.equal('YY-MM-D')
+      Logful.handlers.stdout.formats.timestamp.should.equal('YY-MM-D')
       // The default value
-      Logful.modules.stdout.formats.message.should.equal(Logful.formats.message)
+      Logful.handlers.stdout.formats.message.should.equal(Logful.formats.message)
     })
   })
 })

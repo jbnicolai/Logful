@@ -16,8 +16,8 @@
 'use strict';
 
 var libDir = process.env.COVERAGE ? '../lib-cov/' : '../lib/'
-  , Stdout = require(libDir + 'modules/stdout')
-  , GenericModule = require(libDir + 'modules/genericmodule')
+  , Stdout = require(libDir + 'handlers/stdout')
+  , GenericHandler = require(libDir + 'handlers/generichandler')
   , Logful = require(libDir + 'logful')
   , stdout
   // Fake entry to be used for testing
@@ -43,8 +43,8 @@ describe('Stdout', function () {
     stdout = new Stdout({ formats: Logful.formats }, fakeOut)
   })
 
-  it('should extend GenericModule', function () {
-    stdout.should.be.an.instanceOf(GenericModule)
+  it('should extend GenericHandler', function () {
+    stdout.should.be.an.instanceOf(GenericHandler)
   })
 
 
