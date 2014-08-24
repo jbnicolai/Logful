@@ -27,6 +27,7 @@ describe('Logful', function () {
   beforeEach(function () {
     // Create a new instance
     logger = new Logful()
+    Logful.modules = [] // Reset the loaded modules so we can provide configuration per test
   })
 
 
@@ -174,6 +175,14 @@ describe('Logful', function () {
         done()
       }
       logger = new Logful()
+    })
+
+    it('should merge configuration objects with defaults', function () {
+      Logful.use('stdout', { formats: { timestamp: 'YY-MM-D' } })
+      // The overriden value
+      Logful.modules.stdout.formats.timestamp.should.equal('YY-MM-D')
+      // The default value
+      Logful.modules.stdout.formats.message.should.equal(Logful.formats.message)
     })
   })
 })
