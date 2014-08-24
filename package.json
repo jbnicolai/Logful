@@ -36,5 +36,11 @@
     "mocha-lcov-reporter": "^0.0.1",
     "should": "^4"
   },
-  "keywords": ["logging", "log", "logger", "stdout", "debug"]
+  "keywords": [
+    "logging",
+    "log",
+    "logger",
+    "stdout",
+    "debug"
+  ]
 }
