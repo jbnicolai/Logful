@@ -107,6 +107,7 @@ describe('Logful', function () {
     it('should contain property - origin (object)', function (done) {
       logger.on('entry', function (entry) {
         entry.should.have.property('origin')
+        entry.origin.should.have.property('identity')
         entry.origin.should.have.property('application')
         entry.origin.should.have.property('module')
         done()
@@ -144,6 +145,18 @@ describe('Logful', function () {
       Logful.level.should.not.equal('warn')
       Logful.level = 'warn'
       Logful.level.should.equal('warn')
+    })
+  })
+
+
+  describe('property:identity', function () {
+
+    it('should be a combination of application and module names', function () {
+      // When module name is present
+      logger = new Logful('myApp')
+      logger.identity.should.equal(Logful.application + '\\myApp')
+      logger = new Logful()
+      logger.identity.should.equal(Logful.application)
     })
   })
 
