@@ -28,14 +28,14 @@ describe('GenericHandler', function () {
   })
 
   it('should merge formatting configuration with defaults for any handler', function () {
-      GenericHandler.prototype.formats =
-      { message: '{test}'
-      }
-      handler = new GenericHandler({ formats: { timestamp: 'test' } })
-      handler.formats.message.should.equal('{test}')
-      handler.formats.timestamp.should.equal('test')
-      delete GenericHandler.prototype.formats // Restore original prototype state
-    })
+    GenericHandler.prototype.formats =
+    { message: '{test}'
+    }
+    handler = new GenericHandler({ formats: { timestamp: 'test' } })
+    handler.formats.message.should.equal('{test}')
+    handler.formats.timestamp.should.equal('test')
+    delete GenericHandler.prototype.formats // Restore original prototype state
+  })
 
 
   describe('.subscribe()', function () {
