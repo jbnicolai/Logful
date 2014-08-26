@@ -12,6 +12,7 @@ deploy:
   api_key:
     secure: lymx6KUjS8daJ+zEhzY2wqn4u8gsbOHBzbtLiNba9IHCCQp/tBhT57TcIKABuf+GzsOFQcINuMNoTe/eMN2bzkYaX5zx5zTmcdKfBN+jv52cah3rwQG6SXdORbuRq8Z9d7DjvO2hgV03pCMMZdLXfl6BctRwRCwLbguDzN3lP+s=
   on:
+    node: 0.10
     tags: true
     repo: Dreamscapes/Logful
     all_branches: true
