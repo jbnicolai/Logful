@@ -18,7 +18,6 @@
 var libDir = process.env.COVERAGE ? '../lib-cov/' : '../lib/'
   , Stdout = require(libDir + 'handlers/stdout')
   , GenericHandler = require(libDir + 'handlers/generichandler')
-  , Logful = require(libDir + 'logful')
   , stdout
   // Fake entry to be used for testing
   , entry =
@@ -40,7 +39,7 @@ describe('Stdout', function () {
 
   beforeEach(function () {
     fakeOut.write = function () {}
-    stdout = new Stdout({ formats: Logful.formats }, fakeOut)
+    stdout = new Stdout(null, fakeOut)
   })
 
   it('should extend GenericHandler', function () {
