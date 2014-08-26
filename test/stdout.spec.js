@@ -47,6 +47,11 @@ describe('Stdout', function () {
     stdout.should.be.an.instanceOf(GenericHandler)
   })
 
+  it('should have default message format', function () {
+    Stdout.prototype.formats.should.be.an.Object
+    Stdout.prototype.formats.should.have.property('message')
+  })
+
 
   describe('.log()', function () {
 
