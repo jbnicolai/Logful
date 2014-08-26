@@ -16,7 +16,7 @@
     "node": ">= 0.10.0"
   },
   "scripts": {
-    "test": "grunt test"
+    "test": "grunt lint test coverage"
   },
   "dependencies": {
     "chalk": "^0.5.1",
