@@ -29,12 +29,12 @@ describe('GenericHandler', function () {
 
   it('should merge formatting configuration with defaults for any handler', function () {
     var formats = GenericHandler.prototype.formats
-    GenericHandler.prototype.formats =
-    { message: '{test}'
-    }
+    GenericHandler.prototype.formats = { message: '{test}' }
     handler = new GenericHandler({ formats: { timestamp: 'test' } })
+
     handler.formats.message.should.equal('{test}')
     handler.formats.timestamp.should.equal('test')
+
     GenericHandler.prototype.formats = formats // Restore original prototype state
   })
 
