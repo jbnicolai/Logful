@@ -38,6 +38,11 @@ describe('GenericHandler', function () {
     GenericHandler.prototype.formats = formats // Restore original prototype state
   })
 
+  it('should save the application name to the current instance', function () {
+    handler = new GenericHandler({ application: 'test' })
+    handler.should.have.property('application').and.equal('test')
+  })
+
 
   describe('.subscribe()', function () {
 

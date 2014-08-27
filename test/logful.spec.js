@@ -189,5 +189,14 @@ describe('Logful', function () {
       }
       logger = new Logful()
     })
+
+    it('should pass the application name to the handlers', function () {
+      var originalVar = Logful.application
+      Logful.application = 'customName'
+      Logful.use('stdout')
+
+      Logful.handlers.stdout.should.have.property('application').and.equal(Logful.application)
+      Logful.application = originalVar
+    })
   })
 })
