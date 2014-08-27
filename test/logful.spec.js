@@ -118,16 +118,16 @@ describe('Logful', function () {
 
   describe('property:level', function () {
 
-    it('should block events below this level', function (done) {
+    it('should block entries below this level', function (done) {
       Logful.level.should.not.equal('debug')
       logger.on('entry', function() {
-        throw new Error('debug event trigerred when threshold is set higher')
+        throw new Error('debug entry logged when threshold is set higher')
       })
       logger.log('debug', 'Hello world')
       process.nextTick(done)
     })
 
-    it('should accept events of the same level', function (done) {
+    it('should accept entries of the same level', function (done) {
       logger.on('entry', function() {
         done()
       })
