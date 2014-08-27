@@ -26,6 +26,7 @@ describe('Logful', function () {
 
   beforeEach(function () {
     Logful.handlers = []    // Reset the loaded handlers so we can provide configuration per test
+    Logful.application('node')
     logger = new Logful()   // Create a new instance
   })
 
@@ -152,10 +153,9 @@ describe('Logful', function () {
 
     it('should be a combination of application and module names', function () {
       // When module name is present
+      Logful.application('test')
       logger = new Logful('myApp')
-      logger.identity.should.equal(Logful.application + '\\myApp')
-      logger = new Logful()
-      logger.identity.should.equal(Logful.application)
+      logger.identity.should.equal('test\\myApp')
     })
   })
 
@@ -188,14 +188,16 @@ describe('Logful', function () {
       }
       logger = new Logful()
     })
+  })
 
-    it('should pass the application name to the handlers', function () {
-      var originalVar = Logful.application
-      Logful.application = 'customName'
+
+  describe(':application()', function () {
+
+    it('should be able to set application name', function () {
+      Logful.application('test')
       Logful.use('stdout')
 
-      Logful.handlers.stdout.should.have.property('application').and.equal(Logful.application)
-      Logful.application = originalVar
+      Logful.handlers.stdout.should.have.property('application').and.equal('test')
     })
   })
 })
