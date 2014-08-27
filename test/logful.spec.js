@@ -25,9 +25,8 @@ var libDir = process.env.COVERAGE ? '../lib-cov/' : '../lib/'
 describe('Logful', function () {
 
   beforeEach(function () {
-    // Create a new instance
-    logger = new Logful()
-    Logful.handlers = [] // Reset the loaded handlers so we can provide configuration per test
+    Logful.handlers = []    // Reset the loaded handlers so we can provide configuration per test
+    logger = new Logful()   // Create a new instance
   })
 
 
