@@ -38,10 +38,6 @@ describe('GenericHandler', function () {
     GenericHandler.prototype.formats = formats // Restore original prototype state
   })
 
-  it('should have property .formats', function () {
-    GenericHandler.prototype.should.have.property('formats').and.be.an.Object
-  })
-
 
   describe('.subscribe()', function () {
 
