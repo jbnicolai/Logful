@@ -44,6 +44,7 @@
     "log",
     "logger",
     "stdout",
+    "syslog",
     "debug"
   ]
 }
