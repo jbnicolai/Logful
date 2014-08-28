@@ -53,6 +53,17 @@ describe('Logful', function () {
   })
 
 
+  describe('property:identity', function () {
+
+    it('should be a combination of application and module names', function () {
+      // When module name is present
+      Logful.application('test')
+      logger = new Logful('myApp')
+      logger.identity.should.equal('test\\myApp')
+    })
+  })
+
+
   describe('.log()', function () {
 
     it('should emit "entry" event when called', function (done) {
@@ -162,17 +173,6 @@ describe('Logful', function () {
       (function () {
         Logful.level('warn')
       }).should.not.throw()
-    })
-  })
-
-
-  describe('property:identity', function () {
-
-    it('should be a combination of application and module names', function () {
-      // When module name is present
-      Logful.application('test')
-      logger = new Logful('myApp')
-      logger.identity.should.equal('test\\myApp')
     })
   })
 
