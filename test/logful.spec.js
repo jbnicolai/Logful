@@ -35,6 +35,22 @@ describe('Logful', function () {
     logger.should.be.an.instanceOf(EventEmitter)
   })
 
+  it('should have alias functions for all log levels', function () {
+    var calls = []
+      , severities = Object.keys(Logful.severities)
+
+    logger.log = function (level) {
+      calls.push(level)
+    }
+
+    severities.forEach(function (key) {
+      logger[key].should.be.a.Function
+      logger[key](key, '')
+    })
+
+    calls.should.containDeep(severities)
+  })
+
 
   describe('.log()', function () {
 
