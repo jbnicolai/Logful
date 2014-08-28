@@ -33,13 +33,13 @@ var libDir = process.env.COVERAGE ? '../lib-cov/' : '../lib/'
       , module:       'stdoutSpec'
       }
     }
-  , fakeOut = {}
+  , fakeDest = {}
 
 describe('Stdout', function () {
 
   beforeEach(function () {
-    fakeOut.write = function () {}
-    stdout = new Stdout(null, fakeOut)
+    fakeDest.write = function () {}
+    stdout = new Stdout(null, fakeDest)
   })
 
   it('should extend GenericHandler', function () {
@@ -60,7 +60,7 @@ describe('Stdout', function () {
     })
 
     it('should send the message to STDOUT', function (done) {
-      fakeOut.write = function (message) {
+      fakeDest.write = function (message) {
           message.should.be.a.String
           done()
       }
@@ -68,7 +68,7 @@ describe('Stdout', function () {
     })
 
     it('should log the message with a newline at the end', function (done) {
-      fakeOut.write = function (message) {
+      fakeDest.write = function (message) {
           message.should.endWith('\n')
           done()
       }

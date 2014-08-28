@@ -33,13 +33,13 @@ var libDir = process.env.COVERAGE ? '../lib-cov/' : '../lib/'
       , module:       'stdoutSpec'
       }
     }
-  , fakeOut = {}
+  , fakeDest = {}
 
 describe('Syslog', function () {
 
   beforeEach(function () {
-    fakeOut.log = function () {}
-    syslog = new Syslog(null, fakeOut)
+    fakeDest.log = function () {}
+    syslog = new Syslog(null, fakeDest)
   })
 
   it('should extend GenericHandler', function () {
@@ -60,7 +60,7 @@ describe('Syslog', function () {
     })
 
     it('should send the message to Syslog', function (done) {
-      fakeOut.log = function (level, message) {
+      fakeDest.log = function (level, message) {
         level.should.be.a.String.and.equal(entry.level.name)
         message.should.be.a.String
         done()
