@@ -18,7 +18,7 @@ var Logful = require('../lib/logful')
 
 suite('File', function () {
   set('type', 'static')
-  set('iterations', 10000)
+  set('iterations', 100000)
 
   Logful
     .application('Matcha')
