@@ -110,6 +110,7 @@ describe('Logful', function () {
         entry.origin.should.have.property('identity')
         entry.origin.should.have.property('application')
         entry.origin.should.have.property('module')
+        entry.origin.should.have.property('pid')
         done()
       })
     })
