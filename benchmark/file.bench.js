@@ -12,10 +12,12 @@
 
 'use strict';
 
+/** @private */
 var Logful = require('../lib/logful')
   , fs = require('fs')
   , logger
 
+/* global suite, set, bench */
 suite('File', function () {
   set('type', 'static')
   set('iterations', 100000)

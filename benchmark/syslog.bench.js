@@ -12,9 +12,11 @@
 
 'use strict';
 
+/** @private */
 var Logful = require('../lib/logful')
   , logger
 
+/* global suite, set, bench */
 suite('Syslog', function () {
   set('type', 'static')
   set('iterations', 100000)

@@ -70,6 +70,7 @@ module.exports = function (grunt) {
       // Targets
       , project:        ['<%= srcFiles %>']
       , tests:          ['<%= tstFiles %>']
+      , bench:          ['benchmark/**/*.js']
       , gruntfile:      ['gruntfile.js']
       }
 
