@@ -27,6 +27,7 @@ describe('Logful', function () {
   beforeEach(function () {
     Logful.handlers = []    // Reset the loaded handlers so we can provide configuration per test
     Logful.application('node')
+    Logful.level('info')
     logger = new Logful()   // Create a new instance
   })
 
@@ -133,10 +134,9 @@ describe('Logful', function () {
   })
 
 
-  describe('property:level', function () {
+  describe(':level()', function () {
 
     it('should block entries below this level', function (done) {
-      Logful.level.should.not.equal('debug')
       logger.on('entry', function() {
         throw new Error('debug entry logged when threshold is set higher')
       })
@@ -149,19 +149,19 @@ describe('Logful', function () {
         done()
       })
       // Log an entry of the same level as currently set as minimum
-      logger.log(Logful.level, 'Hello world')
+      logger.log('info', 'Hello world')
     })
 
     it('should throw when attempting to set to invalid level', function () {
       (function () {
-        Logful.level = 'undef'
+        Logful.level('undef')
       }).should.throw()
     })
 
     it('should allow valid levels', function () {
-      Logful.level.should.not.equal('warn')
-      Logful.level = 'warn'
-      Logful.level.should.equal('warn')
+      (function () {
+        Logful.level('warn')
+      }).should.not.throw()
     })
   })
 
