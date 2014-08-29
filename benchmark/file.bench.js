@@ -35,5 +35,6 @@ suite('File', function () {
   after(function () {
     // Clean up the log file
     fs.unlinkSync(__dirname + '/out.log')
+    Logful.modules = []
   })
 })

@@ -30,4 +30,8 @@ suite('Syslog', function () {
   bench('write', function () {
     logger.info('benchmarking message. Please ignore.')
   })
+
+  after(function () {
+    Logful.modules = []
+  })
 })
