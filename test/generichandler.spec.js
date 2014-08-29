@@ -60,5 +60,12 @@ describe('GenericHandler', function () {
       handler.log = done
       emitter.emit('entry')
     })
+
+    it('should return this', function () {
+      var emitter = new EventEmitter()
+      var returnVar = handler.subscribe(emitter)
+
+      returnVar.should.be.an.instanceOf(GenericHandler)
+    })
   })
 })
