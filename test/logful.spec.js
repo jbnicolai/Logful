@@ -197,7 +197,7 @@ describe('Logful', function () {
 
   describe(':use()', function () {
 
-    it('should load module from lib/handlers', function () {
+    it('should load module from lib/handlers if given a string', function () {
       Logful.use('stdout')
       Logful.handlers.stdout.should.be.an.instanceOf(Stdout)
     })
@@ -209,6 +209,17 @@ describe('Logful', function () {
         Logful.handlers.stdout.subscribe = originalFn
         done()
       }
+      logger = new Logful()
+    })
+
+    it('should accept custom handlers as functions', function (done) {
+      var CustomHandler = function () {} // empty constructor
+      CustomHandler.prototype.subscribe = function (emitter) {
+        emitter.should.be.an.instanceOf(Logful)
+        done()
+      }
+
+      Logful.use(CustomHandler)
       logger = new Logful()
     })
   })
