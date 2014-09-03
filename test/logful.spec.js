@@ -222,6 +222,19 @@ describe('Logful', function () {
       Logful.use(CustomHandler)
       logger = new Logful()
     })
+
+    it('should do nothing if this handler is already loaded', function () {
+      var calls = 0
+        , CustomHandler = function () {
+            calls++
+          }
+
+      Logful
+        .use(CustomHandler)
+        .use(CustomHandler)
+
+      calls.should.equal(1, 'There should be only one instance created')
+    })
   })
 
 
