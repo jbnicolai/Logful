@@ -5,7 +5,7 @@
   "indent": 2,
   "latedef": "nofunc",
   "laxcomma": true,
-  "maxlen": 120,
+  "maxlen": 100,
   "newcap": true,
   "node": true,
   "nonbsp": true,

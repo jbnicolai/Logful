@@ -38,7 +38,8 @@ module.exports = function (grunt) {
     // grunt-contrib-watch: Run tasks on filesystem changes
     , watch:
       { options:
-        // Define default tasks here, then point targets' "tasks" attribute here: '<%= watch.options.tasks %>'
+        // Define default tasks here, then point targets' "tasks" attribute here:
+        // '<%= watch.options.tasks %>'
         { tasks:        ['lint', 'test']
         , interrupt:    true
         , atBegin:      false
@@ -46,7 +47,7 @@ module.exports = function (grunt) {
         }
 
         // Targets
-      , gruntfile:      // Watch the gruntfile for changes (also dynamically reloads grunt-watch config)
+      , gruntfile:      // Watch the gruntfile for changes (also auto-reloads grunt-watch config)
         { files:        'gruntfile.js'
         , tasks:        '<%= watch.options.tasks %>'
         }
@@ -154,7 +155,11 @@ module.exports = function (grunt) {
   define('test',              ['mochacli:project'])
   define('docs',              ['clean:docs', 'jsdoc'])
   define('coverage',          ['clean:coverage', 'jscoverage', 'mochacli:htmlcover'])
-  define('coverage:publish',  ['clean:coverage', 'jscoverage', 'mochacli:lcovcover', 'coveralls:project'])
+  define('coverage:publish',  [ 'clean:coverage'
+                              , 'jscoverage'
+                              , 'mochacli:lcovcover'
+                              , 'coveralls:project'
+                              ])
   define('build:dev',         ['lint', 'test'])
   define('build',             ['build:dev', 'docs', 'coverage'])
   define('default',           ['build'])

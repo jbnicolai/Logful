@@ -92,7 +92,8 @@ describe('Logful', function () {
     })
 
     it('should emit "log" event in the next tick', function (done) {
-      // If this triggers the event in the current tick, the event listener below will not be triggered
+      // If this triggers the event in the current tick, the event
+      // listener below will not be triggered
       logger.log('info', 'Hello world')
 
       logger.on('entry', function (entry) {
