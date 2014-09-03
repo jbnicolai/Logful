@@ -177,18 +177,6 @@ describe('Logful', function () {
   })
 
 
-  describe(':isValidLevel()', function () {
-
-    it('should return false for invalid levels', function () {
-      Logful.isValidLevel('random').should.be.false
-    })
-
-    it('should return true for valid levels', function () {
-      Logful.isValidLevel('info').should.be.true
-    })
-  })
-
-
   describe(':use()', function () {
 
     it('should load module from lib/handlers', function () {
