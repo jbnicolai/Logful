@@ -106,6 +106,15 @@ describe('Logful', function () {
 
       retVal.should.be.exactly(logger)
     })
+
+    it('should accept Error object as message', function (done) {
+      logger.on('entry', function (entry) {
+        entry.message.should.equal('Hello world')
+        done()
+      })
+
+      logger.log('info', new Error('Hello world'))
+    })
   })
 
 
