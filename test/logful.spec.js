@@ -64,6 +64,14 @@ describe('Logful', function () {
   })
 
 
+  describe('property:severities', function () {
+
+    it('should be frozen', function () {
+      Object.isFrozen(Logful.severities).should.be.true
+    })
+  })
+
+
   describe('.log()', function () {
 
     it('should emit "entry" event when called', function (done) {
