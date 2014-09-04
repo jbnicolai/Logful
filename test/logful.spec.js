@@ -52,6 +52,15 @@ describe('Logful', function () {
     calls.should.containDeep(severities)
   })
 
+  it('should support printf-like message input', function (done) {
+    logger.on('entry', function (entry) {
+      entry.message.should.equal('Hello world')
+      done()
+    })
+
+    logger.info('Hello %s', 'world')
+  })
+
 
   describe('property:identity', function () {
 
