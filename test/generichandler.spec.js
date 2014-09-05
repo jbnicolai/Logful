@@ -68,4 +68,22 @@ describe('GenericHandler', function () {
       returnVar.should.be.an.instanceOf(GenericHandler)
     })
   })
+
+
+  describe('.processItem()', function() {
+
+    it('should return the original value if no processor is defined', function () {
+      var returnVar = handler.processItem('test', 'testVal', {})
+      returnVar.should.equal('testVal')
+    })
+
+    it('should call the processing function when present', function () {
+      handler.processTest = function (value) {
+        return 'processed ' + value
+      }
+
+      var returnVar = handler.processItem('test', 'testVal', {})
+      returnVar.should.equal('processed testVal')
+    })
+  })
 })
