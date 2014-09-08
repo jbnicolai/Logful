@@ -100,14 +100,16 @@ describe('Logful', function () {
       logger.log('undef', 'Hello world')
     })
 
-    it('should emit "log" event in the next tick', function (done) {
-      // If this triggers the event in the current tick, the event
-      // listener below will not be triggered
-      logger.log('info', 'Hello world')
-
+    it('should emit "log" event in the current tick', function (done) {
       logger.on('entry', function (entry) {
         entry.level.name.should.equal('info')
         done()
+      })
+
+      logger.log('info', 'Hello world')
+
+      logger.on('entry', function () {
+        done(new Error('Entry emitted in the next tick!'))
       })
     })
 
@@ -131,7 +133,9 @@ describe('Logful', function () {
   describe('event:entry', function () {
 
     beforeEach(function () {
-      logger.log('info', 'Hello world')
+      process.nextTick(function () {
+        logger.log('info', 'Hello world')
+      })
     })
 
     it('should contain property - level (object)', function (done) {
