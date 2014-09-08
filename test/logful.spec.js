@@ -15,7 +15,7 @@
 
 'use strict';
 
-var libDir = process.env.COVERAGE ? '../lib-cov/' : '../lib/'
+var libDir = process.env.COV_DIR || '../lib/'
   , EventEmitter = require('events').EventEmitter
   , Logful = require(libDir + 'logful')
   , Stdout = require(libDir + 'handlers/stdout')

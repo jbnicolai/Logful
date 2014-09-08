@@ -113,7 +113,7 @@ module.exports = function (grunt) {
           { reporter:   'html-cov'
           , force:      true
           , env:
-            { COVERAGE: 1
+            { COV_DIR: '../<%= covDir %>'       // Path to instrumented libDir, relative to test dir
             }
           , save:       'coverage.html'
           }
@@ -124,7 +124,7 @@ module.exports = function (grunt) {
           { reporter:   'mocha-lcov-reporter'
           , force:      true
           , env:
-            { COVERAGE: 1
+            { COV_DIR: '../<%= covDir %>'       // Path to instrumented libDir, relative to test dir
             }
           , save:       'coverage.lcov'
           }

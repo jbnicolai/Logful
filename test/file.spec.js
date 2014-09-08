@@ -15,7 +15,7 @@
 
 'use strict';
 
-var libDir = process.env.COVERAGE ? '../lib-cov/' : '../lib/'
+var libDir = process.env.COV_DIR || '../lib/'
   , File = require(libDir + 'handlers/file')
   , GenericHandler = require(libDir + 'handlers/generichandler')
   , file
