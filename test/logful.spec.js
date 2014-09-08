@@ -180,7 +180,7 @@ describe('Logful', function () {
 
     it('should block entries below this level', function (done) {
       logger.on('entry', function() {
-        throw new Error('debug entry logged when threshold is set higher')
+        done(new Error('debug entry logged when threshold is set higher'))
       })
       logger.log('debug', 'Hello world')
       process.nextTick(done)
