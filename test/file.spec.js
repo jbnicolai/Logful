@@ -29,8 +29,10 @@ var libDir = process.env.COV_DIR || '../lib/'
     , message:        'Hello world'
     , timestamp:      new Date()
     , origin:
-      { application:  'Logful tester'
-      , module:       'stdoutSpec'
+      { identity:     'Logful tester\\fileSpec'
+      , application:  'Logful tester'
+      , module:       'fileSpec'
+      , pid:          4356
       }
     }
   , fakeDest = {}
@@ -56,6 +58,7 @@ describe('File', function () {
 
     it('should return this', function () {
       var retVal = file.log(entry)
+
       retVal.should.be.exactly(file)
     })
 
@@ -64,6 +67,7 @@ describe('File', function () {
           message.should.be.a.String
           done()
       }
+
       file.log(entry)
     })
 
@@ -72,6 +76,7 @@ describe('File', function () {
           message.should.endWith('\n')
           done()
       }
+
       file.log(entry)
     })
   })

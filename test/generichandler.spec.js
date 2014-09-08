@@ -29,6 +29,7 @@ describe('GenericHandler', function () {
 
   it('should merge formatting configuration with defaults for any handler', function () {
     var formats = GenericHandler.prototype.formats
+
     GenericHandler.prototype.formats = { message: '{test}' }
     handler = new GenericHandler({ formats: { timestamp: 'test' } })
 
@@ -48,6 +49,7 @@ describe('GenericHandler', function () {
 
     it('subscribes itself to the "entry" event of given emitter', function () {
       var emitter = new EventEmitter()
+
       handler.subscribe(emitter)
 
       emitter.listeners('entry').length.should.equal(1)
@@ -55,17 +57,18 @@ describe('GenericHandler', function () {
 
     it('should hand the event data over to .log() method', function (done) {
       var emitter = new EventEmitter()
-      handler.subscribe(emitter)
 
+      handler.subscribe(emitter)
       handler.log = done
+
       emitter.emit('entry')
     })
 
     it('should return this', function () {
       var emitter = new EventEmitter()
-      var returnVar = handler.subscribe(emitter)
+        , retVal = handler.subscribe(emitter)
 
-      returnVar.should.be.an.instanceOf(GenericHandler)
+      retVal.should.be.an.instanceOf(GenericHandler)
     })
   })
 
@@ -73,8 +76,9 @@ describe('GenericHandler', function () {
   describe('.processItem()', function() {
 
     it('should return the original value if no processor is defined', function () {
-      var returnVar = handler.processItem('test', 'testVal', {})
-      returnVar.should.equal('testVal')
+      var retVal = handler.processItem('test', 'testVal', {})
+
+      retVal.should.equal('testVal')
     })
 
     it('should call the processing function when present', function () {
@@ -82,8 +86,9 @@ describe('GenericHandler', function () {
         return 'processed ' + value
       }
 
-      var returnVar = handler.processItem('test', 'testVal', {})
-      returnVar.should.equal('processed testVal')
+      var retVal = handler.processItem('test', 'testVal', {})
+
+      retVal.should.equal('processed testVal')
     })
   })
 })

@@ -101,15 +101,21 @@ describe('Logful', function () {
     })
 
     it('should emit "log" event in the current tick', function (done) {
+      var err = null
+
       logger.on('entry', function (entry) {
         entry.level.name.should.equal('info')
-        done()
       })
 
       logger.log('info', 'Hello world')
-
+      // Since the log event is expected to be emitted in current tick, this listener should NOT
+      // be executed at all
       logger.on('entry', function () {
-        done(new Error('Entry emitted in the next tick!'))
+        err = new Error('Entry emitted in the next tick')
+      })
+
+      process.nextTick(function () {
+        done(err)
       })
     })
 
@@ -179,11 +185,16 @@ describe('Logful', function () {
   describe(':level()', function () {
 
     it('should block entries below this level', function (done) {
+      var err = null
+
       logger.on('entry', function() {
-        done(new Error('debug entry logged when threshold is set higher'))
+        err = new Error('debug entry logged when threshold is set higher')
       })
+
       logger.log('debug', 'Hello world')
-      process.nextTick(done)
+      process.nextTick(function () {
+        done(err)
+      })
     })
 
     it('should accept entries of the same level', function (done) {
@@ -218,6 +229,7 @@ describe('Logful', function () {
     it('should make all loaded handlers a subscriber of the "entry" event', function (done) {
       Logful.use('stdout')
       var originalFn = Logful.handlers.stdout.subscribe
+
       Logful.handlers.stdout.subscribe = function () {
         Logful.handlers.stdout.subscribe = originalFn
         done()
@@ -227,6 +239,7 @@ describe('Logful', function () {
 
     it('should accept custom handlers as functions', function (done) {
       var CustomHandler = function () {} // empty constructor
+
       CustomHandler.prototype.subscribe = function (emitter) {
         emitter.should.be.an.instanceOf(Logful)
         done()
