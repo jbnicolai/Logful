@@ -1,8 +1,8 @@
 # Logful
-[![NPM Version](https://badge.fury.io/js/logful.svg)](https://npmjs.org/package/logful)
-[![Build Status](https://travis-ci.org/Dreamscapes/Logful.svg)](http://travis-ci.org/Dreamscapes/Logful)
-[![Coverage Status](https://coveralls.io/repos/Dreamscapes/Logful/badge.png?branch=develop)](https://coveralls.io/r/Dreamscapes/Logful)
-[![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com)
+[![NPM Version][npm-badge]][npm-url]
+[![Build Status][travis-badge]][travis-url]
+[![Coverage Status][coveralls-badge]][coveralls-url]
+[![Built with Grunt][grunt-badge]][grunt-url]
 
 > Logging everywhere, made simple and still configurable
 
@@ -108,7 +108,7 @@ You can generate the API docs using [Grunt](http://gruntjs.com):
 
 - git checkout https://github.com/Dreamscapes/Logful.git
 - npm install --dev
-- [sudo] npm install grunt-cli
+- [sudo] npm install -g grunt-cli
 - grunt docs
 
 Documentation is now available at *docs/index.html*.
@@ -116,3 +116,12 @@ Documentation is now available at *docs/index.html*.
 ## License
 
 This software is licensed under the **BSD-3-Clause License**. See the [LICENSE](LICENSE) file for more information.
+
+[npm-badge]: https://badge.fury.io/js/logful.svg
+[npm-url]: https://npmjs.org/package/logful
+[travis-badge]: https://travis-ci.org/Dreamscapes/Logful.svg
+[travis-url]: http://travis-ci.org/Dreamscapes/Logful
+[coveralls-badge]: https://coveralls.io/repos/Dreamscapes/Logful/badge.png?branch=develop
+[coveralls-url]: https://coveralls.io/r/Dreamscapes/Logful
+[grunt-badge]: https://cdn.gruntjs.com/builtwith.png
+[grunt-url]: http://gruntjs.com
