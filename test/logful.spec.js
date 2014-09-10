@@ -18,7 +18,7 @@
 var libDir = process.env.COV_DIR || '../lib/'
   , EventEmitter = require('events').EventEmitter
   , Logful = require(libDir + 'logful')
-  , Stdout = require(libDir + 'handlers/stdout')
+  , Console = require(libDir + 'handlers/console')
   , logger
 
 
@@ -222,16 +222,16 @@ describe('Logful', function () {
   describe(':use()', function () {
 
     it('should load module from lib/handlers if given a string', function () {
-      Logful.use('stdout')
-      Logful.handlers.stdout.should.be.an.instanceOf(Stdout)
+      Logful.use('console')
+      Logful.handlers.console.should.be.an.instanceOf(Console)
     })
 
     it('should make all loaded handlers a subscriber of the "entry" event', function (done) {
-      Logful.use('stdout')
-      var originalFn = Logful.handlers.stdout.subscribe
+      Logful.use('console')
+      var originalFn = Logful.handlers.console.subscribe
 
-      Logful.handlers.stdout.subscribe = function () {
-        Logful.handlers.stdout.subscribe = originalFn
+      Logful.handlers.console.subscribe = function () {
+        Logful.handlers.console.subscribe = originalFn
         done()
       }
       logger = new Logful()
@@ -268,9 +268,9 @@ describe('Logful', function () {
 
     it('should be able to set application name', function () {
       Logful.application('test')
-      Logful.use('stdout')
+      Logful.use('console')
 
-      Logful.handlers.stdout.should.have.property('application').and.equal('test')
+      Logful.handlers.console.should.have.property('application').and.equal('test')
     })
   })
 })

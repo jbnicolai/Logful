@@ -16,9 +16,9 @@
 'use strict';
 
 var libDir = process.env.COV_DIR || '../lib/'
-  , Stdout = require(libDir + 'handlers/stdout')
+  , Console = require(libDir + 'handlers/console')
   , GenericHandler = require(libDir + 'handlers/generichandler')
-  , stdout
+  , handler
   // Fake entry to be used for testing
   , entry =
     { level:
@@ -29,45 +29,45 @@ var libDir = process.env.COV_DIR || '../lib/'
     , message:        'Hello world'
     , timestamp:      new Date()
     , origin:
-      { identity:     'Logful tester\\stdoutSpec'
+      { identity:     'Logful tester\\handlerSpec'
       , application:  'Logful tester'
-      , module:       'stdoutSpec'
+      , module:       'handlerSpec'
       , pid:          4356
       }
     }
   , fakeDest = {}
 
-describe('Stdout', function () {
+describe('Console', function () {
 
   beforeEach(function () {
     fakeDest.write = function () {}
-    stdout = new Stdout(null, fakeDest)
+    handler = new Console(null, fakeDest)
   })
 
   it('should extend GenericHandler', function () {
-    stdout.should.be.an.instanceOf(GenericHandler)
+    handler.should.be.an.instanceOf(GenericHandler)
   })
 
   it('should have default message format', function () {
-    Stdout.prototype.formats.should.be.an.Object
-    Stdout.prototype.formats.should.have.property('message')
+    Console.prototype.formats.should.be.an.Object
+    Console.prototype.formats.should.have.property('message')
   })
 
 
   describe('.log()', function () {
 
     it('should return this', function () {
-      var retVal = stdout.log(entry)
+      var retVal = handler.log(entry)
 
-      retVal.should.be.exactly(stdout)
+      retVal.should.be.exactly(handler)
     })
 
-    it('should send the message to STDOUT', function (done) {
+    it('should send the message to STDERR', function (done) {
       fakeDest.write = function (message) {
           message.should.be.a.String
           done()
       }
-      stdout.log(entry)
+      handler.log(entry)
     })
 
     it('should log the message with a newline at the end', function (done) {
@@ -75,7 +75,7 @@ describe('Stdout', function () {
           message.should.endWith('\n')
           done()
       }
-      stdout.log(entry)
+      handler.log(entry)
     })
   })
 })

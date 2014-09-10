@@ -22,7 +22,7 @@ The most powerful feature of Logful is the possibility to use multiple logging d
 var Logful = require('logful')
 // This needs to be done only once
 Logful
-  .use('stdout')
+  .use('console')
   .use('syslog')
 
 // somewhere where you actually need to log something...
@@ -32,7 +32,7 @@ logger.info('this will be logged to console and Syslog!')
 
 ### Included handlers
 
-- `stdout` - send messages to the console
+- `console` - send messages to the console
 - `file` - log messages to a log file
 - `syslog` - send messages to Syslog
 
