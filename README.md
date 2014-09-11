@@ -1,4 +1,5 @@
 # Logful
+
 [![NPM Version][npm-badge]][npm-url]
 [![Build Status][travis-badge]][travis-url]
 [![Coverage Status][coveralls-badge]][coveralls-url]
@@ -8,35 +9,77 @@
 
 ## About
 
-Logful is a logging library which follows the [Syslog severity levels](http://www.wikipedia.org/wiki/Syslog#Severity_levels) and allows you to easily select, swap or combine logging destinations. It has several built-in logging handlers and it is easy to write your own.
+Logful is a logging module. It can write your log messages to multiple destinations at once. It provides you with a client whose methods are named in accordance with the [Syslog's severity levels][wiki-syslog-levels] specification.
+
+The following logging **handlers** are currently supported:
+
+- `console` - send messages to the console (STDERR), and with colours!
+- `file` - log messages to a log file
+- `syslog` - send messages to Syslog
+
+... and you can easily implement your own if needed.
 
 ## Installation Instructions
 
 Install the module via **npm**: `npm install logful [--save]`
+
+Unless you plan on removing your logging statements make sure you install the module as production dependency.
 
 ## Usage
 
 The most powerful feature of Logful is the possibility to use multiple logging destinations at the same time:
 
 ```js
+// Load the module's main "class"
 var Logful = require('logful')
-// This needs to be done only once
+
+// This needs to be done only once - tell Logful where to write
+// your log messages
 Logful
+  // Name your app - some handlers may use this information to
+  // distinguish your app's entries from others (i.e. Syslog does this)
+  .application('MyApp')
   .use('console')
   .use('syslog')
 
 // somewhere where you actually need to log something...
-var logger = new Logful()
+
+// Each instance accepts an optional 'name' argument that further helps
+// identifying from where the message is coming
+var logger = new Logful('my-module')
 logger.info('this will be logged to console and Syslog!')
 ```
 
-### Included handlers
+All logging methods also accept `Error` objects as input - the `err.message` will then be logged. Also, you may use `printf`-like syntax:
 
-- `console` - send messages to the console
-- `file` - log messages to a log file
-- `syslog` - send messages to Syslog
+```js
+var str = 'test string'
+logger.info('Value of str: %s', str) // -> Value of str: test string
 
-## Examples
+logger.info(new Error('Just FYI, Something bad happened'))
+```
+
+### Available logging methods
+
+Here is the list of all the methods you  can use in your code to log your messages at various severity levels.
+
+```js
+logger
+  .debug()
+  .info()
+  .notice()
+  .warn()   // or .warning()
+  .error()
+  .alert()
+  .crit()   // or .critical()
+  .emerg()  // or .emergency() or .panic()
+```
+
+#### Note for Mac OS X users
+
+The native Console app by default shows only messages with severity level of `warn` and above.
+
+## API Documentation
 
 Logful tries to provide reasonable defaults, but if you like, you can customise almost all aspects of its behaviour.
 
@@ -64,7 +107,7 @@ Logful.level('warn') // debug, info and notice will be ignored
 
 Tell Logful where to send your messages.
 
-**Default:** */dev/null* (messages are ignored if you do not specify a destination)
+By default, messages are ignored if you do not specify a destination
 
 ```js
 Logful.use('file', { path: './logfile' })
@@ -78,21 +121,9 @@ Create a new instance and start logging! Optionally, you can provide a module na
 var logger = new Logful('MyModule')
 ```
 
-### Logging methods
+## Customising Logful
 
-Here is the list of all the methods you  can use in your code to log your messages at various severity levels.
-
-```js
-logger
-  .debug()
-  .info()
-  .notice()
-  .warn()   // or .warning()
-  .error()
-  .alert()
-  .crit()   // or .critical()
-  .emerg()  // or .emergency() or .panic()
-```
+To be documented. For now, please take a look at `GenericHandler`'s constructor.
 
 ## Performance
 
@@ -102,14 +133,16 @@ All the built-in handlers are implemented using Streams, so sending a message to
 - npm install --dev
 - npm run bench
 
-## API documentation
+## Generating detailed API documentation
 
-You can generate the API docs using [Grunt](http://gruntjs.com):
+You can generate the API docs using [Grunt][grunt-url]:
 
-- git checkout https://github.com/Dreamscapes/Logful.git
-- npm install --dev
-- [sudo] npm install -g grunt-cli
-- grunt docs
+```sh
+git checkout https://github.com/Dreamscapes/Logful.git
+npm install --dev
+[sudo] npm install -g grunt-cli
+grunt docs
+```
 
 Documentation is now available at *docs/index.html*.
 
@@ -125,3 +158,4 @@ This software is licensed under the **BSD-3-Clause License**. See the [LICENSE](
 [coveralls-url]: https://coveralls.io/r/Dreamscapes/Logful
 [grunt-badge]: https://cdn.gruntjs.com/builtwith.png
 [grunt-url]: http://gruntjs.com
+[wiki-syslog-levels]: http://www.wikipedia.org/wiki/Syslog#Severity_levels
