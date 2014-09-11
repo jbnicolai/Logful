@@ -11,5 +11,4 @@ npm-debug.log
 
 # Project-specific excludes
 docs
-lib-cov
-coverage.*
+coverage
