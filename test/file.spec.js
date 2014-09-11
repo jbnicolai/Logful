@@ -15,9 +15,8 @@
 
 'use strict';
 
-var libDir = process.env.COV_DIR || '../lib/'
-  , File = require(libDir + 'handlers/file')
-  , GenericHandler = require(libDir + 'handlers/generichandler')
+var File = require('../lib/handlers/file')
+  , GenericHandler = require('../lib/handlers/generichandler')
   , file
   // Fake entry to be used for testing
   , entry =

@@ -15,9 +15,8 @@
 
 'use strict';
 
-var libDir = process.env.COV_DIR || '../lib/'
-  , Syslog = require(libDir + 'handlers/syslog')
-  , GenericHandler = require(libDir + 'handlers/generichandler')
+var Syslog = require('../lib/handlers/syslog')
+  , GenericHandler = require('../lib/handlers/generichandler')
   , syslog
   // Fake entry to be used for testing
   , entry =

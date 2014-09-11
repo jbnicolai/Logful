@@ -15,10 +15,9 @@
 
 'use strict';
 
-var libDir = process.env.COV_DIR || '../lib/'
-  , EventEmitter = require('events').EventEmitter
-  , Logful = require(libDir + 'logful')
-  , Console = require(libDir + 'handlers/console')
+var EventEmitter = require('events').EventEmitter
+  , Logful = require('../lib/logful')
+  , Console = require('../lib/handlers/console')
   , logger
 
 
