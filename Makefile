@@ -3,17 +3,17 @@
 # Licensed under the BSD-3-Clause license
 # For full copyright and license information, please see the LICENSE file
 #
-# @author		Robert Rossmann <rr.rossmann@me.com>
-# @copyright	2014 Robert Rossmann
-# @link			https://github.com/Dreamscapes/logful
-# @license		http://choosealicense.com/licenses/BSD-3-Clause  BSD-3-Clause License
+# @author       Robert Rossmann <rr.rossmann@me.com>
+# @copyright    2014 Robert Rossmann
+# @link         https://github.com/Dreamscapes/logful
+# @license      http://choosealicense.com/licenses/BSD-3-Clause  BSD-3-Clause License
 
 
-LIBDIR = lib				# Source js files
-TSTDIR = test				# Test cases
-DOCDIR = docs				# Generated API documentation
-COVDIR = coverage			# Generated code coverage data
-BENCHDIR = benchmark		# Benchmark files
+LIBDIR = lib
+TSTDIR = test
+DOCDIR = docs
+COVDIR = coverage
+BENCHDIR = benchmark
 
 BIN = node_modules/.bin/
 
@@ -49,6 +49,17 @@ coveralls: coverage
 # Generate API documentation
 docs:
 	@$(BIN)jsdoc -r $(LIBDIR) README.md --destination $(DOCDIR)
+
+gh-pages: clean docs
+	@cp -R $(DOCDIR) ${HOME}
+	@rm -rf * .??*
+	@git clone --branch=gh-pages https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git . &> /dev/null
+	@cp -Rf ${HOME}/$(DOCDIR)/* .
+	@git add -A
+	@git config user.name "Travis-CI"
+	@git config user.email "travis@travis-ci.org"
+	@git commit -m "Updated gh-pages from ${TRAVIS_COMMIT}"
+	@git push --quiet --force origin HEAD:gh-pages &> /dev/null
 
 # Run benchmarks for logging handlers
 bench:
