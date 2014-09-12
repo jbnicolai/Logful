@@ -53,7 +53,8 @@ docs:
 gh-pages: clean docs
 	@cp -R $(DOCDIR) ${HOME}
 	@rm -rf * .??*
-	@git clone --branch=gh-pages https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git . &> /dev/null
+	@git clone --branch=gh-pages \
+        https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git . &> /dev/null
 	@cp -Rf ${HOME}/$(DOCDIR)/* .
 	@git add -A
 	@git config user.name "Travis-CI"
