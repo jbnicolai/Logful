@@ -3,7 +3,6 @@
 [![NPM Version][npm-badge]][npm-url]
 [![Build Status][travis-badge]][travis-url]
 [![Coverage Status][coveralls-badge]][coveralls-url]
-[![Built with Grunt][grunt-badge]][grunt-url]
 
 > Logging everywhere, made simple and still configurable
 
@@ -156,6 +155,4 @@ This software is licensed under the **BSD-3-Clause License**. See the [LICENSE](
 [travis-url]: http://travis-ci.org/Dreamscapes/Logful
 [coveralls-badge]: https://coveralls.io/repos/Dreamscapes/Logful/badge.png?branch=develop
 [coveralls-url]: https://coveralls.io/r/Dreamscapes/Logful
-[grunt-badge]: https://cdn.gruntjs.com/builtwith.png
-[grunt-url]: http://gruntjs.com
 [wiki-syslog-levels]: http://www.wikipedia.org/wiki/Syslog#Severity_levels
