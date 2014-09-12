@@ -51,16 +51,19 @@ docs:
 	@$(BIN)jsdoc -r $(LIBDIR) README.md --destination $(DOCDIR)
 
 gh-pages: clean docs
+	@cp -R . ${HOME}/repo
 	@cp -R $(DOCDIR) ${HOME}
 	@rm -rf * .??*
 	@git clone --branch=gh-pages \
-        https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git . &> /dev/null
+		https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git . &> /dev/null
 	@cp -Rf ${HOME}/$(DOCDIR)/* .
 	@git add -A
 	@git config user.name "Travis-CI"
 	@git config user.email "travis@travis-ci.org"
 	@git commit -m "Updated gh-pages from ${TRAVIS_COMMIT}"
 	@git push --quiet --force origin HEAD:gh-pages &> /dev/null
+	@rm -rf * .??*
+	@cp -R ${HOME}/repo .
 
 # Run benchmarks for logging handlers
 bench:
