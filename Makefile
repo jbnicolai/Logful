@@ -76,4 +76,4 @@ clean-coverage:
 # Delete all generated files
 clean: clean-docs clean-coverage
 
-.PHONY: install lint test coveralls bench clean-docs clean-coverage clean
+.PHONY: install lint test coveralls gh-pages bench clean-docs clean-coverage clean
