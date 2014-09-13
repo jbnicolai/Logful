@@ -13,6 +13,7 @@ LIBDIR = lib
 TSTDIR = test
 DOCDIR = docs
 COVDIR = coverage
+GHPDIR = gh-pages
 BENCHDIR = benchmark
 
 BIN = node_modules/.bin/
@@ -51,19 +52,16 @@ docs:
 	@$(BIN)jsdoc -r $(LIBDIR) README.md --destination $(DOCDIR)
 
 gh-pages: clean docs
-	@cp -R . ${HOME}/repo
-	@cp -R $(DOCDIR) ${HOME}
-	@rm -rf * .??*
-	@git clone --branch=gh-pages \
-		https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git . &> /dev/null
-	@cp -Rf ${HOME}/$(DOCDIR)/* .
-	@git add -A
-	@git config user.name "Travis-CI"
-	@git config user.email "travis@travis-ci.org"
-	@git commit -m "Updated gh-pages from ${TRAVIS_COMMIT}"
-	@git push --quiet --force origin HEAD:gh-pages &> /dev/null
-	@rm -rf * .??*
-	@cp -R ${HOME}/repo .
+	@git clone --branch=$(GHPDIR) \
+			https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git $(GHPDIR) > /dev/null 2>&1; \
+		cd $(GHPDIR); \
+		rm -rf *; \
+		cp -Rf ../$(DOCDIR)/* .; \
+		git add -A; \
+		git config user.name "Travis-CI" && git config user.email "travis@travis-ci.org"; \
+		git commit -m "Updated Github Pages from ${TRAVIS_COMMIT}"; \
+		git push --quiet origin $(GHPDIR) > /dev/null 2>&1; \
+		cd ..; rm -rf $(GHPDIR)
 
 # Run benchmarks for logging handlers
 bench:
