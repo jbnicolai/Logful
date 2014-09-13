@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Index</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Index</h1>
+
+    
+
+
+    
+
+
+    <h3> </h3>
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    <section>
+        <article><h1>Logful</h1><p><a href="https://npmjs.org/package/logful"><img src="https://badge.fury.io/js/logful.svg" alt="NPM Version"></a>
+<a href="http://travis-ci.org/Dreamscapes/Logful"><img src="https://travis-ci.org/Dreamscapes/Logful.svg" alt="Build Status"></a>
+<a href="https://coveralls.io/r/Dreamscapes/Logful"><img src="https://coveralls.io/repos/Dreamscapes/Logful/badge.png?branch=develop" alt="Coverage Status"></a></p>
+<blockquote>
+<p>Logging everywhere, made simple and still configurable</p>
+</blockquote>
+<h2>About</h2><p>Logful is a logging module. It can write your log messages to multiple destinations at once. It provides you with a client whose methods are named in accordance with the <a href="http://www.wikipedia.org/wiki/Syslog#Severity_levels">Syslog's severity levels</a> specification.</p>
+<p>The following logging <strong>handlers</strong> are currently supported:</p>
+<ul>
+<li><code>console</code> - send messages to the console (STDERR), and with colours!</li>
+<li><code>file</code> - log messages to a log file</li>
+<li><code>syslog</code> - send messages to Syslog</li>
+</ul>
+<p>... and you can easily implement your own if needed.</p>
+<h2>Installation Instructions</h2><p>Install the module via <strong>npm</strong>: <code>npm install logful [--save]</code></p>
+<p>Unless you plan on removing your logging statements make sure you install the module as production dependency.</p>
+<h2>Usage</h2><p>The most powerful feature of Logful is the possibility to use multiple logging destinations at the same time:</p>
+<pre class="prettyprint source lang-js"><code>// Load the module's main &quot;class&quot;
+var Logful = require('logful')
+
+// This needs to be done only once - tell Logful where to write
+// your log messages
+Logful
+  // Name your app - some handlers may use this information to
+  // distinguish your app's entries from others (i.e. Syslog does this)
+  .application('MyApp')
+  .use('console')
+  .use('syslog')
+
+// somewhere where you actually need to log something...
+
+// Each instance accepts an optional 'name' argument that further helps
+// identifying from where the message is coming
+var logger = new Logful('my-module')
+logger.info('this will be logged to console and Syslog!')</code></pre><p>All logging methods also accept <code>Error</code> objects as input - the <code>err.message</code> will then be logged. Also, you may use <code>printf</code>-like syntax:</p>
+<pre class="prettyprint source lang-js"><code>var str = 'test string'
+logger.info('Value of str: %s', str) // -> Value of str: test string
+
+logger.info(new Error('Just FYI, Something bad happened'))</code></pre><h3>Available logging methods</h3><p>Here is the list of all the methods you  can use in your code to log your messages at various severity levels.</p>
+<pre class="prettyprint source lang-js"><code>logger
+  .debug()
+  .info()
+  .notice()
+  .warn()   // or .warning()
+  .error()
+  .alert()
+  .crit()   // or .critical()
+  .emerg()  // or .emergency() or .panic()</code></pre><h4>Note for Mac OS X users</h4><p>The native Console app by default shows only messages with severity level of <code>warn</code> and above.</p>
+<h2>API Documentation</h2><p>Logful tries to provide reasonable defaults, but if you like, you can customise almost all aspects of its behaviour.</p>
+<h3>Logful.application()</h3><p>Logful uses the application name to distinguish your application from others, i.e. in Syslog.</p>
+<p><strong>Default:</strong> <em>node</em></p>
+<pre class="prettyprint source lang-js"><code>Logful.application('MyApp') // Set a new application's name</code></pre><h3>Logful.level()</h3><p>Specify the minimum severity level at which messages should start being logged.</p>
+<p><strong>Default:</strong> <em>info</em></p>
+<pre class="prettyprint source lang-js"><code>Logful.level('warn') // debug, info and notice will be ignored</code></pre><h3>Logful.use()</h3><p>Tell Logful where to send your messages.</p>
+<p>By default, messages are ignored if you do not specify a destination</p>
+<pre class="prettyprint source lang-js"><code>Logful.use('file', { path: './logfile' })</code></pre><h3>new Logful()</h3><p>Create a new instance and start logging! Optionally, you can provide a module name to this instance so that each of you modules' entries will be easily recognisable.</p>
+<pre class="prettyprint source lang-js"><code>var logger = new Logful('MyModule')</code></pre><h2>Customising Logful</h2><p>To be documented. For now, please take a look at <code>GenericHandler</code>'s constructor.</p>
+<h2>Performance</h2><p>All the built-in handlers are implemented using Streams, so sending a message to all available log handlers will not slow your code execution. If you wish to see how fast you can go, run the included benchmarks:</p>
+<ul>
+<li>git checkout https://github.com/Dreamscapes/Logful.git</li>
+<li>npm install --dev</li>
+<li>npm run bench</li>
+</ul>
+<h2>Generating detailed API documentation</h2><p>You can generate the API docs using [Grunt][grunt-url]:</p>
+<pre class="prettyprint source lang-sh"><code>git checkout https://github.com/Dreamscapes/Logful.git
+npm install --dev
+[sudo] npm install -g grunt-cli
+grunt docs</code></pre><p>Documentation is now available at <em>docs/index.html</em>.</p>
+<h2>License</h2><p>This software is licensed under the <strong>BSD-3-Clause License</strong>. See the <a href="LICENSE">LICENSE</a> file for more information.</p></article>
+    </section>
+
+
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Index</a></h2><h3>Classes</h3><ul><li><a href="Console.html">Console</a></li><li><a href="File.html">File</a></li><li><a href="GenericHandler.html">GenericHandler</a></li><li><a href="Logful.html">Logful</a></li><li><a href="Syslog.html">Syslog</a></li></ul><h3>Events</h3><ul><li><a href="Logful.html#event:entry">entry</a></li></ul>
+</nav>
+
+<br clear="both">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha9</a> on Sat Sep 13 2014 18:23:03 GMT+0000 (UTC)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
