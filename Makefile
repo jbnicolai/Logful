@@ -8,7 +8,14 @@
 # @link         https://github.com/Dreamscapes/logful
 # @license      http://choosealicense.com/licenses/BSD-3-Clause  BSD-3-Clause License
 
+# Helper vars
+BIN = node_modules/.bin/
 
+# Project-specific information
+GH_USER = Alaneor
+GH_REPO = dreamscapes/logful
+
+# Project-specific paths
 LIBDIR = lib
 TSTDIR = test
 DOCDIR = docs
@@ -16,7 +23,14 @@ COVDIR = coverage
 GHPDIR = gh-pages
 BENCHDIR = benchmark
 
-BIN = node_modules/.bin/
+# Set/override some variables for Travis
+
+# Travis cannot access our repo using just a username - a token is necessary to be exported into
+# GH_TOKEN env variable
+GH_USER := $(if ${GH_TOKEN},${GH_TOKEN},$(GH_USER))
+# This will usually not changes, but if someone forks our repo, this should make sure Travis will
+# not try to update the source repo
+GH_REPO := $(if ${TRAVIS_REPO_SLUG},${TRAVIS_REPO_SLUG},$(GH_REPO))
 
 # Command line args for Mocha test runner
 MOCHAFLAGS = --reporter spec --require should
@@ -51,17 +65,22 @@ coveralls: coverage
 docs:
 	@$(BIN)jsdoc -r $(LIBDIR) README.md --destination $(DOCDIR)
 
-gh-pages: clean docs
+# Update gh-pages branch with new docs
+gh-pages: clean-gh-pages docs
+	@# The commit message when updating gh-pages
+	$(eval COMMIT_MSG := $(if ${TRAVIS_COMMIT},\
+		"Updated gh-pages from ${TRAVIS_COMMIT}",\
+		"Updated gh-pages manually"))
+
 	@git clone --branch=$(GHPDIR) \
-			https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git $(GHPDIR) > /dev/null 2>&1; \
+			https://$(GH_USER)@github.com/$(GH_REPO).git $(GHPDIR) > /dev/null 2>&1; \
 		cd $(GHPDIR); \
 		rm -rf *; \
 		cp -Rf ../$(DOCDIR)/* .; \
 		git add -A; \
 		git config user.name "Travis-CI" && git config user.email "travis@travis-ci.org"; \
-		git commit -m "Updated Github Pages from ${TRAVIS_COMMIT}"; \
-		git push --quiet origin $(GHPDIR) > /dev/null 2>&1; \
-		cd ..; rm -rf $(GHPDIR)
+		git commit -m $(COMMIT_MSG); \
+		git push --quiet origin $(GHPDIR) > /dev/null 2>&1;
 
 # Run benchmarks for logging handlers
 bench:
@@ -75,7 +94,11 @@ clean-docs:
 clean-coverage:
 	@rm -rf $(COVDIR)
 
-# Delete all generated files
-clean: clean-docs clean-coverage
+# Clean gh-pages dir
+clean-gh-pages:
+	@rm -rf $(GHPDIR)
 
-.PHONY: install lint test coveralls gh-pages bench clean-docs clean-coverage clean
+# Delete all generated files
+clean: clean-docs clean-coverage clean-gh-pages
+
+.PHONY: install lint test coveralls gh-pages bench clean-docs clean-coverage clean-gh-pages clean
