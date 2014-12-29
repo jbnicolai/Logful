@@ -54,7 +54,7 @@ test:
 
 # Generate coverage report (html report available in coverage/lcov-report)
 coverage:
-	@$(BIN)istanbul cover _mocha > /dev/null -- $(MOCHAFLAGS)
+	@$(BIN)istanbul cover $(BIN)_mocha > /dev/null -- $(MOCHAFLAGS)
 
 # Submit coverage results to Coveralls (works from Travis; from localhost, additional setup is
 # necessary
