@@ -28,7 +28,7 @@ BENCHDIR = benchmark
 # Travis cannot access our repo using just a username - a token is necessary to be exported into
 # GH_TOKEN env variable
 GH_USER := $(if ${GH_TOKEN},${GH_TOKEN},$(GH_USER))
-# This will usually not changes, but if someone forks our repo, this should make sure Travis will
+# This will usually not change, but if someone forks our repo, this should make sure Travis will
 # not try to update the source repo
 GH_REPO := $(if ${TRAVIS_REPO_SLUG},${TRAVIS_REPO_SLUG},$(GH_REPO))
 
