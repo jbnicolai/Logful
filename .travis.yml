@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-- '0.11'
+- '0.12'
 - '0.10'
 after_success:
 - make coveralls
@@ -17,7 +17,7 @@ deploy:
     all_branches: true
 matrix:
   allow_failures:
-  - node_js: '0.11'
+  - node_js: '0.12'
 env:
   global:
     secure: BC2nXaBIFznNBCA6klgiuYBzUX4+3odZhwfWZDjOdAdYR8pWmd8btSFd3JHsRIZ0BopRao0TXVGRARQkdP/FE0W0z2zDuAieH7MN5/jRbUOzZ042+80i617zsxvtQh0/fEjFLl8UL+IKsHkMIPoZ/c1DlQPWmQ87Dsw1tarXDGQ=
